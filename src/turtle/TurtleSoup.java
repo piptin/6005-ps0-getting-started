@@ -12,8 +12,11 @@ public class TurtleSoup {
      * @param turtle the turtle context
      * @param sideLength length of each side
      */
-    public static void drawSquare(Turtle turtle, int sideLength) {
-        throw new RuntimeException();
+    public static void drawSquare(final Turtle turtle, int sideLength) {
+        for(int i = 0; i < 4; i++){
+            turtle.forward(sideLength);
+            turtle.turn(90);
+        }
     }
 
     /**
@@ -26,7 +29,7 @@ public class TurtleSoup {
      * @return angle, in degrees between 0 and 360
      */
     public static double calculateRegularPolygonAngle(int sides) {
-        throw new RuntimeException();
+        return ((double) ((sides - 2) * 180)) / sides;
     }
 
     /**
@@ -40,7 +43,7 @@ public class TurtleSoup {
      * @return the integer number of sides
      */
     public static int calculatePolygonSidesFromAngle(double angle) {
-        throw new RuntimeException();
+        return Math.round(360 / (180 - (float) angle));
     }
 
     /**
