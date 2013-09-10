@@ -32,11 +32,22 @@ public class RulesOf6005 {
      *         question in your assignment, according to the 6.005 collaboration
      *         policy for the current semester.
      */
-    public static boolean mayUseCodeInAssignment(boolean writtenByYourself,
-            boolean availableToOthers, boolean writtenAsCourseWork,
-            boolean citingYourSource, boolean implementationRequired) {
-        // TODO: Fill in this method, then remove the exception
-        throw new UnsupportedOperationException();
+    public static boolean mayUseCodeInAssignment(final boolean writtenByYourself,
+            final boolean availableToOthers, final boolean writtenAsCourseWork,
+            final boolean citingYourSource, final boolean implementationRequired) {
+        if(writtenByYourself){
+            return true;
+        }
+        else if(implementationRequired){
+            return false;
+        }
+        else if(!writtenAsCourseWork && availableToOthers && citingYourSource){
+            return true;
+        }
+        else{
+            return false;
+        }
+        //throw new UnsupportedOperationException();
     }
     
     /**
