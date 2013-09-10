@@ -82,7 +82,13 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        throw new RuntimeException();
+        int diffX = targetX - currentX;
+        int diffY = targetY - currentY;
+        double angleFromNorth = Math.toDegrees(Math.atan2(diffX, diffY));
+        double angle = angleFromNorth - currentHeading;
+        if(angle < 0)
+            angle += 360;
+        return angle;
     }
 
     /**
@@ -121,12 +127,13 @@ public class TurtleSoup {
      * will run your drawSquare() method.
      */
     public static void main(String args[]) {
-        DrawableTurtle turtle = new DrawableTurtle();
-
-        drawRegularPolygon(turtle, 5, 50);
-
-        // draw the window
-        turtle.draw();
+        System.out.println(Math.atan2(0, 1));
+//        DrawableTurtle turtle = new DrawableTurtle();
+//
+//        drawRegularPolygon(turtle, 5, 50);
+//
+//        // draw the window
+//        turtle.draw();
     }
 
 }
