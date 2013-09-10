@@ -125,7 +125,11 @@ public class TurtleSoup {
      * @param turtle the turtle context
      */
     public static void drawPersonalArt(Turtle turtle) {
-        throw new RuntimeException();
+        //onion slice
+        for(int i = 0; i < 15; i++){ //i < 15 to limit size of shapes
+            drawRegularPolygon(turtle, i, i*10);
+            drawRegularPolygon(turtle, i*10, i);
+        }
     }
 
     /**
@@ -135,13 +139,12 @@ public class TurtleSoup {
      * will run your drawSquare() method.
      */
     public static void main(String args[]) {
-        System.out.println(Math.atan2(0, 1));
-//        DrawableTurtle turtle = new DrawableTurtle();
-//
-//        drawRegularPolygon(turtle, 5, 50);
-//
-//        // draw the window
-//        turtle.draw();
+        DrawableTurtle turtle = new DrawableTurtle();
+
+        drawPersonalArt(turtle);
+
+        // draw the window
+        turtle.draw();
     }
 
 }
