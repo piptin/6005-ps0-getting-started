@@ -103,7 +103,15 @@ public class TurtleSoup {
      * @return list of heading adjustments between points, of size #points-1.
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException();
+        List<Double> headingChanges = new ArrayList<Double>();
+        int length = xCoords.size();
+        double currentHeading = 0;
+        for(int i = 1; i < length; i++){
+            double adjustment = calculateHeadingToPoint(currentHeading, xCoords.get(i-1), yCoords.get(i-1), xCoords.get(i), xCoords.get(i));
+            currentHeading += adjustment;
+            headingChanges.add(adjustment);
+        }
+        return headingChanges;
     }
 
     /**
