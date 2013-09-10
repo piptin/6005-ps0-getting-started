@@ -56,7 +56,11 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawRegularPolygon(Turtle turtle, int sides, int sideLength) {
-        throw new RuntimeException();
+        double rotation = 180 - calculateRegularPolygonAngle(sides); // Turtle will turn by the external angle
+        for(int i = 0; i < sides; i++){
+            turtle.forward(sideLength);
+            turtle.turn(rotation);
+        }
     }
 
     /**
@@ -119,7 +123,7 @@ public class TurtleSoup {
     public static void main(String args[]) {
         DrawableTurtle turtle = new DrawableTurtle();
 
-        drawSquare(turtle, 40);
+        drawRegularPolygon(turtle, 5, 50);
 
         // draw the window
         turtle.draw();
