@@ -47,7 +47,6 @@ public class RulesOf6005 {
         else{
             return false;
         }
-        //throw new UnsupportedOperationException();
     }
     
     /**
