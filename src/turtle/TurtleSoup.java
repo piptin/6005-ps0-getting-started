@@ -13,10 +13,8 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawSquare(final Turtle turtle, int sideLength) {
-        for(int i = 0; i < 4; i++){
-            turtle.forward(sideLength);
-            turtle.turn(90);
-        }
+        final int SIDES_OF_SQUARE = 4;
+        drawRegularPolygon(turtle, SIDES_OF_SQUARE, sideLength);
     }
 
     /**
@@ -43,6 +41,8 @@ public class TurtleSoup {
      * @return the integer number of sides
      */
     public static int calculatePolygonSidesFromAngle(double angle) {
+        // The sum of exerior angles should be 360 deg
+        // Divide 360 by the exterior angle to find the number of sides
         return Math.round(360 / (180 - (float) angle));
     }
 
@@ -86,6 +86,7 @@ public class TurtleSoup {
         int diffY = targetY - currentY;
         double angleFromNorth = Math.toDegrees(Math.atan2(diffX, diffY));
         double angle = angleFromNorth - currentHeading;
+        // normalize angle to be positive 
         if(angle < 0)
             angle += 360;
         return angle;
@@ -104,9 +105,9 @@ public class TurtleSoup {
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
         List<Double> headingChanges = new ArrayList<Double>();
-        int length = xCoords.size();
+        int numberOfCoordinates = xCoords.size();
         double currentHeading = 0;
-        for(int i = 1; i < length; i++){
+        for(int i = 1; i < numberOfCoordinates; i++){
             double adjustment = calculateHeadingToPoint(currentHeading, xCoords.get(i-1), yCoords.get(i-1), xCoords.get(i), xCoords.get(i));
             currentHeading += adjustment;
             headingChanges.add(adjustment);
@@ -125,8 +126,8 @@ public class TurtleSoup {
      * @param turtle the turtle context
      */
     public static void drawPersonalArt(Turtle turtle) {
-        //onion slice
-        for(int i = 0; i < 15; i++){ //i < 15 to limit size of shapes
+        // onion slice
+        for(int i = 0; i < 15; i++){ // i < 15 to limit size of shapes
             drawRegularPolygon(turtle, i, i*10);
             drawRegularPolygon(turtle, i*10, i);
         }
@@ -140,7 +141,7 @@ public class TurtleSoup {
      */
     public static void main(String args[]) {
         DrawableTurtle turtle = new DrawableTurtle();
-
+        
         drawPersonalArt(turtle);
 
         // draw the window
