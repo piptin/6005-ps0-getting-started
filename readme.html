@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)http://web.mit.edu/6.005/www/fa13/psets/ps0/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<link rel="stylesheet" href="./readme_files/main.css" type="text/css">
+<title>PS0: Getting Started</title>
+</head>
+<body>
+
+<div id="content">
+
+<table cellpadding="0" border="0" cellspacing="0" width="100%">
+
+<tbody><tr valign="BOTTOM">
+<td>
+<h1>6.005 Software Construction<br>
+Problem Set 0: Getting Started<br>
+Beta Due: 9/10/2013, 10:00pm EST<br>
+Code Reviews Due: 9/12/2013 10:00pm EST<br>
+Final Due: 9/17/2013, 10:00pm EST<br>
+</h1>
+
+</td>
+
+</tr></tbody></table>
+
+<h2>Before you start coding</h2>
+
+<li> <b>Install the software you'll need on your laptop.</b>  You need to install three things for this problem set:
+
+  <ul>
+    <li><b><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html">JDK 7</a></b> (for Windows, Linux, or Mac): From this web page, download JDK 7 Update 25. (You don't need NetBeans or Java EE.) </li>
+
+    <li><b><a href="http://www.eclipse.org/downloads/">Eclipse 4.3</a></b>: Choose "Eclipse IDE for Java Developers," which will download a ZIP file. Unpack the ZIP file, go inside the resulting folder, and run Eclipse. Make sure Eclipse is configured to use Java 7 by doing the following:
+      <ol>
+	<li>Click Window → Preferences → Java → Installed JREs and ensure that jre7 is the only one checked (on a Mac, the menu is Eclipse → Preferences → Java → Installed JREs).</li>
+	<li>Also in Preferences, click Java → Compiler and set "Compiler compliance level" to 1.7. Click OK and Yes on any prompts.</li>
+      </ol>
+    </li>
+
+    <li><b><a href="http://www.git-scm.com/">Git</a></b>: We will be using the command-line version of Git.  The page should prompt you to download the appropriate version.  Follow the instructions in the README file in the downloaded ZIP or DMG file. <br><b>Note for Windows users: we recommend checking the option to enable Git from the windows command prompt during installation.</b></li>
+  </ul>
+
+<p>Athena already has Eclipse, the JDK, and Git installed. To run Eclipse on Athena, follow these steps:</p>
+
+<ol>
+<li>From the terminal, run<br>
+  <code>add eclipse-sdk</code><br>
+  to add the eclipse locker to your Athena environment.</li>
+<li>From the terminal, run<br>
+  <code>eclipse</code><br>
+  to start Eclipse.</li>
+<li>Make sure you configure Eclipse to use Java 7 as above.</li>
+</ol>
+
+<h2>Eclipse</h2>
+
+<p>
+The Eclipse integrated development environment (IDE) is a powerful, flexible, complicated, and occasionally frustrating set of tools for writing, modifying, and debugging programs. It is especially useful for working in Java.
+</p>
+
+<p>
+When you run Eclipse, you will be prompted for a "workspace" directory, which is where Eclipse will store its configuration and metadata. On Athena, for example, the default location is a directory called <code>workspace</code> in your home directory. <b>You should not run more than one copy of Eclipse at the same time</b> with the same workspace, or the metadata will become corrupted.
+</p>
+
+<p>
+The first time you run Eclipse, it will show you a welcome screen. Click the button to go directly to the "Workbench" and you're ready to begin.</p>
+
+<p>You may also store your code in the workspace directory, but this is not required, and is occasionally confusing. On the left side of your Eclipse window is the Package Explorer, which shows you all the projects in your workspace. <b>The Package Explorer looks like a file browser, but it is not.</b> Don’t be fooled — it rearranges files and folders, includes things that are not files or folders, and can include projects stored <b>anywhere on disk</b> that have been added (but not copied into) to the workspace.</p>
+
+<h3> Tab policy </h3>
+<p>
+At this time you should also go through and change tabs to spaces. This will ensure that your code looks the same in all editors, regardless of the configured width of a tab character in each editor. Go to Window (Eclipse if you're running a Mac) → Preferences... In the toolbar go to Java → Code Style → Formatter. Click the "Edit..." button next to the active profile. In the new window you should change the Tab policy to "Spaces only." Keep the Indentation size and Tab size at 4. Enter a new name for the policy and press OK.
+
+</p><h2>Git</h2>
+
+<p>
+To turn in this problem set, you will commit and push your code to a <a href="http://en.wikipedia.org/wiki/Git_(software)">Git</a> repository. The last code committed <em>and</em> pushed before the problem set due date will be used for grading.</p>
+
+<p>Git is a Version Control System (VCS). If you have used other version control software before, like SVN or CVS, many of the concepts and procedures of git will be familiar to you. The "Pro Git" book is available from the <a href="http://git-scm.com/book">git documentation page</a>; it describes what git is and how to use it. Quote:</p>
+
+<blockquote>
+<p>
+What is version control, and why should you care? Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later. [...] It allows you to revert files back to a previous state, revert the entire project back to a previous state, compare changes over time, see who last modified something that might be causing a problem, who introduced an issue and when, and more. Using a VCS also generally means that if you screw things up or lose files, you can easily recover.
+</p>
+</blockquote>
+
+<p>Quite simplified, below are some important git concepts to know about:</p>
+<ul>
+<li><b>repository: </b>A folder containing all the files associated with a project (e.g. a 6.005 problem set or team project), as well as the entire history of <em>commit</em>s to those files.</li>
+<li><b>commit (or "revision"): </b>A snapshot of the files in a repository at a given point in time.</li>
+<li><b>add (or "stage"): </b>Before changes to a file can be <em>committed</em> to a repository, the files in question must be <em>added</em> or <em>staged</em> (before each commit). This lets you commit changes to only certain files of your choosing at a time, but can also be a bit of a pain if you accidentally forget to add all the files you wanted to commit before committing. If you are committing to git using Eclipse, Eclipse will help you select which files to add before committing.</li>
+<li><b>clone: </b>Since git is a "distributed" version control system, there is no concept of a centralized git "server" that holds the latest official version of your code. Instead, developers "clone" remote repositories that contain files they want access to, and then commit to their local clones. Only when they <em>push</em> their local commits to the original remote repository are other developers able to see their changes.</li>
+<li><b>push: </b>The act of writing your local commits to a remote repository. Again, until you add, commit <em>and</em> push your changes, no one else can see them.</li>
+<li><b>pull: </b>The act of retrieving commits made to a remote repository and writing them into your local repository. This is how you are able to see commits made by others after the time at which you made an initial clone.</li>
+</ul>
+
+<p>We will explain Git more deeply in a later lecture. For now, you can simply follow the instructions in this handout.  If you want to go through an interactive tutorial, Code School's "<a href="http://try.github.com/">Try Git</a>" will show you these commands with a remote repository on GitHub.</p>
+
+<h2>Git in 6.005 Problem Sets</h2>
+<p>For each problem set in 6.005, we will create a git repository for you at "<code>/afs/athena.mit.edu/course/6/6.005/git/fa13/psets/ps<em>[problem set number]</em>/<span style="background: yellow"><em>[your athena name]</em>.git</span></code>".</p>
+
+<p>Initially this "remote" repository will contain some template code that we provide. To work on a problem set, you need to <em>clone</em> this remote repository into a local repository in your Eclipse workspace. To hand in your work, you need to both <em>commit</em> your changes to the local repository and <em>push</em> them to the remote repository. When the time comes for grading your assignments, we will clone the remote repository (at the location above), and look at the last commit you made and pushed there before the deadline.</p>
+
+<h3>Cloning your repository</h3>
+
+<p>Open the terminal and change to the directory where you would like to store your code; for example, your Eclipse workspace directory.</p>
+
+<p>If you are not working on Athena, you will access the remote repository over SSH. In the terminal, run (all on one line)</p>
+
+<blockquote><code>
+git clone ssh://<span style="background: yellow">[username]</span>@athena.dialup.mit.edu/afs/athena.mit.edu/course/6/6.005/git/fa13/psets/ps0/<span style="background: yellow">[username].git</span> ps0
+</code></blockquote>
+
+<p>If you are working on Athena, you have direct access to your remote repository over AFS. You may replace "ssh://[username]@athena.dialup.mit.edu" in the above line with "file://"</p>
+
+The result should be a directory named <code>ps0</code>. This directory contains the starting code for the problem set. Keep the terminal open—you will need it to commit your code (you can always close your terminal and come back to the same directory to commit, of course).
+
+<h3>Configuring Git</h3>
+
+<p>Now that you have set up your first Git repository, there are a few ways in which you should configure Git on your computer before continuing. Please follow the instructions described <a href="http://web.mit.edu/6.005/www/fa13/tutorial/git/">here</a> to configure Git.</p>
+
+<h3>Editing in Eclipse</h3>
+
+<p>After cloning your repository, you need to add the project to Eclipse so you can work on it.</p>
+
+<ol>
+  <li>In Eclipse, go to File → Import... → Git → Projects from Git</li>
+  <li>On the "Select Repository Source" page, select Local</li>
+  <li>On "Select a Git Repository," click Add..., and Browse... to the directory of your clone</li>
+  <li>The "Search results" list should show your clone, with ".git" at the end; click "Finish"</li>
+  <li>On "Select a wizard" for importing, choose "Import existing projects"</li>
+  <li>Finally, on "Import projects," make sure ps0 is checked, and click "Finish"</li>
+</ol>
+
+<p>Note: if you encounter issues with Git support in Eclipse, you can import without telling Eclipse that your project is a Git repository:</p>
+
+<ol>
+  <li>Go to File → Import... → General → Existing Projects into Workspace</li>
+  <li>Browse... to your clone</li>
+  <li>Make sure the project is checked, make sure "Copy projects into workspace" is <b>not</b> checked, and click "Finish"</li>
+</ol>
+
+
+<h2>Warmup: <code>mayUseCodeInAssignment()</code>, Unit testing, Staging Commits, and Pushing</h2>
+
+<p>Look at the source code contained in <code>RulesOf6005.java</code> in package <code>"rules"</code>. The warm up task is to implement <code>mayUseCodeInAssignment(boolean writtenByYourself, boolean availableToOthers, boolean writtenAsCourseWork, boolean citingYourSource, boolean implementationRequired)</code>. You can find the policy under <a href="https://stellar.mit.edu/S/course/6/fa13/6.005/courseMaterial/topics/topic1/syllabus/text/text">course information on Stellar</a>
+
+</p><p>Once you've implemented the method, run the <code>main()</code> method in <code>RulesOf6005.java</code>. The <code>main()</code> is the entry point for Java programs, in this class the main() calls the <code>mayUseCodeInAssignment()</code> method with input parameters . To run the main in RulesOf6005, simply right click on the RulesOf6005.java file in either your Package Explorer, Project View, or Navigator View, and mouse-over the 'Run As' option. Click on the 'Java Application' option. 
+
+
+</p><h2>Unit Testing</h2>
+
+<p>We can use the <code>main()</code> method plus some visual inspection to verify that the implementation was correct.  More generally, programs will have many dozens of methods that need to be tested; visually inspecting output for each one is fragile, time-consuming, and inherently non-scalable.</p>
+
+<p>Instead, we will use <i>automated unit testing</i>, which runs a suite of tests to automatically test whether the implementations are correct.  In PS0, methods that do not draw to screen will use unit tests; we'll talk more about unit testing GUIs later in the course.</p>
+
+<h3><a name="junit">Automated Unit Testing with JUnit</a></h3>
+<p>
+	<a href="http://www.junit.org/">JUnit</a> is a widely-adopted Java unit testing library, and we will use 
+	it heavily in 6.005. A major component of the 6.005 design philosophy is to
+	decompose problems into minimal, orthogonal units, which can be assembled 
+	into the larger modules that form the finished program. One benefit of this
+	approach is that each unit can be tested thoroughly, independently of others, 
+	so that faults can be quickly isolated and corrected, as code is rewritten and modules are configured. Unit testing is the technique of writing tests for the smallest testable pieces of functionality, to allow for the flexible and organic evolution of complex, correct systems.
+</p>
+<p>
+	By writing thoughtful unit tests, it is possible to verify the correctness of 
+	one's code, and to be confident that the resulting programs behave as expected. In 6.005, we will use JUnit version 4.
+</p>
+
+<h3>The Anatomy of JUnit</h3>
+
+<p>JUnit unit tests are written method by method. There is nothing special a class has to do to be used by JUnit; it only need contain methods that JUnit knows to call, which will be referred to as test methods for the remainder of the problem set. Test methods are specified entirely through <em>annotations</em>, which may be thought of as keywords (more specifically, they are a type of metadata), that can be attached to individual methods and classes. Though they do not themselves change the meaning of a Java program, at run-time other Java code can detect the annotations of methods and classes, and make decisions accordingly. The Java annotation system, judiciously used, can create dynamic and powerful code. Though we will not deeply explore annotations in 6.005, you will see how other libraries, such as JUnit, make effective use of them.</p>
+<p>Look closely at <code>RulesOf6005Test.java</code>, and note the <code>@Test</code> that precede method definitions. These are examples of annotations. The JUnit library uses these particular annotations to determine which methods to call when running unit tests. The <code>@Test</code>  annotation denotes a test method; there can be any number in a single  class. Even if one test method fails, the others will be run. The test methods can contain calls to <code>assertEquals</code>, which is an assertion that compares two objects against each other and fails if they are not equal, <code>assertTrue</code> which checks if the condition is true, and <code>assertFalse</code> which checks if the condition is false. <a href="http://junit.sourceforge.net/javadoc/org/junit/Assert.html">Here is a list of the other assertions supported by JUnit</a>. If an assertion in a test method fails, that test method returns immediately, and JUnit records a failure for that test.</p>
+
+<h3>Running Existing Tests</h3>
+
+<p>To run the tests in <tt>RulesOf6005Test</tt>, simply right click on the <tt>RulesOf6005Test.java</tt> file in either your Package Explorer, Project View, or Navigator View, and mouse-over the 'Run As' option. Click on the 'JUnit Test' option, and you should see the JUnit view appear, with a red bar indicating that the tests failed (since you haven't implemented anything yet).</p>
+
+<p>To see what a test failure looks like, try running <code>TurtleSoupTest.java</code> (which is in package <code>"turtle"</code>) before making any changes to TurtleSoup.java. You should now see a red bar in the JUnit view, and if you click on <tt>calculateRegularPolygonAngleTest</tt>, you will see a stack trace in the bottom box, which provides a brief explanation of what went wrong. In this case, RulesOf6005 threw an UnsupportedOperationException. Double clicking on lines in the Failure Trace will bring up the code for the test that failed.</p>
+	
+<p>Passing the public JUnit tests does not necessarily mean that your code is perfect. You should still look over the function specifications carefully and feel free to write your own JUnit tests to verify your code.</p>
+
+<p>For a more thorough introduction, <a href="http://onjava.com/pub/a/onjava/2004/02/04/juie.html">O'Reilly has a JUnit and Eclipse tutorial</a>, with screenshots to help you get acquainted with using JUnit from within Eclipse. The guide was written for JUnit 3, so the code samples use the older (but still supported) JUnit API.</p>
+
+<h2>Committing &amp; Pushing</h2>
+
+<p>After you've finished implementing the function and verified it is correct, let's do a first commit.</p>
+
+<p>First, in the terminal, chance directory to your clone, and take a look around with</p>
+
+<blockquote><code>
+    git status
+</code></blockquote>
+
+<p>which shows you files that have been created, deleted, and modified in the project directory. You should see <code>RulesOf6005.java</code> listed under "Changes not staged for commit." This means Git sees the change, but you have not (yet) asked Git to include the change as part of your next commit.</p>
+
+<p>You can run the command</p>
+
+<blockquote><code>
+    git diff
+</code></blockquote>
+
+<p>to see your changes.</p>
+
+<p>Before committing, files must be <i>staged</i> for commit.  Staging a file is as simple as:</p>
+
+<blockquote><code>
+    git add &lt;filename&gt;
+</code></blockquote>
+
+<p>so use</p>
+
+<blockquote><code>
+    git add src/rules/RulesOf6005.java
+</code></blockquote>
+
+<p>to stage the file.</p>
+
+<p>In addition, it’s always a good idea to review your commits before committing to them. Run</p>
+
+<blockquote><code>
+    git status
+</code></blockquote>
+
+<p>again to see that your changes are now listed under "Changes to be committed." If you run</p>
+
+<blockquote><code>
+    git diff
+</code></blockquote>
+
+<p>those changes are no longer shown! Use</p>
+
+<blockquote><code>
+    git diff --staged
+</code></blockquote>
+
+<p>to see exactly what Git will record if you commit now.</p>
+
+<p>Ready? To perform the commit,</p>
+
+<blockquote><code>
+    git commit
+</code></blockquote>
+
+<p>will actually commit the changes locally, after opening your default editor to allow you to write a commit message (which you should always do!). Your message should be formatted according to the <a href="http://git-scm.com/book/ch5-2.html#Commit-Guidelines">Git standard</a>: a short summary that fits on one line, followed by a blank line and a longer description if necessary.</p>
+
+<p>You can use the command</p>
+
+<blockquote><code>
+    git log
+</code></blockquote>
+
+<p>to see the history of commits in your project. Right now, you should see two of them: the initial commit to create your problem set repository with the starting code, and the commit you made just now.</p>
+
+<p><b>Important:</b> only the local history has the new commit at this point; it is not stored in your remote repository. This is one important aspect where Git is different from centralized systems such as Subversion and CVS.</p>
+
+<p>In order to share the changes with your remote repository (which is the one we will be using for grading), you need to <em>push</em> to the remote repository, with</p>
+
+<blockquote><code>
+    git push origin
+</code></blockquote>
+
+<p>At this point, the remote repository now has the same history as your local repository.  It is important to remember that we will be grading the history in the repository on Athena; if you forget to push, we won't see your commits.</p>
+
+<p>One thing you will notice is that our infrastructure will, on commit, run a <i>subset</i> of the autograder on your code.  Most everything will fail since you've only implemented one method, but, as the deadline approaches, this should give you feedback to make sure we can correctly compile and run your code.</p>
+
+<h2>Turtle Graphics and the Logo Language</h2>
+
+<p><a href="http://en.wikipedia.org/wiki/Logo_%28programming_language%29">Logo</a> is a programming language created at MIT that originally was used to move a robot around in space.  Turtle graphics, added to the Logo language, allows programmers to issue a series of commands to an on-screen "turtle" that moves, drawing a line as it goes.  Turtle graphics have also been added to many different programming languages, <a href="http://docs.python.org/2/library/turtle.html">including Python</a>, where it is part of the standard library.</p>
+
+<p>We will be playing with a simple version of turtle graphics for Java that contains a restricted subset of the Logo language:</p>
+
+<ul>
+  <li><code>forward(units)</code><br>
+      Moves the turtle in the current direction by units pixels, where units is an integer.  Following the original Logo convention, the turtle starts out facing up.
+  </li>
+  <li><code>turn(angle)</code><br>
+    Rotates the turtle by angle degrees to the right (clockwise), where angle is a double precision floating point number.
+  </li>
+</ul>
+
+<p>Don’t worry about the commands to create a new window or to draw the window; those are in the actual testcases themselves, in case you’re curious. <b>Do NOT use any turtle commands other than those listed above in your code.</b></p>
+
+
+
+<h2>Task 1: <code>drawSquare()</code></h2>
+
+<p>Look at the source code contained in <code>TurtleSoup.java</code> in package <code>"turtle"</code>. The first task is to implement <code>drawSquare(Turtle turtle, int sideLength)</code>, using the two methods introduced above: <code>forward()</code> and <code>turn()</code>.</p>
+
+<p>Once you've implemented the method, run the <code>main()</code> method in <code>TurtleSoup.java</code>. The <code>main()</code>, method in this case, simply creates a new turtle, calls your <code>drawSquare()</code> method, and instructs the turtle to draw.  Run the method by going to Run → Run As... → Java Application in Eclipse.  A window will pop up, and, once you click the "Run!" button, you should see a square get drawn.</p>
+
+
+<h2>Task 2 through 7: Implementing other methods</h2>
+
+<p><b>For detailed requirements, read the specifications of each function to be implemented above its function signature in <code>TurtleSoup.java</code>.  Be careful when dealing with mixed integer and floating point calculations.</b>
+You should not change any of the <i>method signatures</i> (<a href="http://docs.oracle.com/javase/tutorial/java/javaOO/methods.html">what's a signature?</a>) below.
+If you do so, you risk receiving <strong>zero points</strong> on the problem set.</p>
+
+<h3>Drawing Polygons</h3>
+
+<ul>
+  <li>
+    <p>
+    Implement <code>calculateRegularPolygonAngle()</code><br> There’s a simple
+    formula for what the inside angles of a regular polygon should be;
+    try to derive it before googling/binging/duckduckgoing.
+    </p>
+    <p>
+    Run the
+    unit tests again; the method that
+    tests <code>calculateRegularPolygonAngle()</code> should now pass
+    and show green instead of red.
+    </p>
+  </li>
+  
+  <li><p>Implement <code>calculatePolygonSidesFromAngle()</code><br> This does the
+inverse of the last function; again, use the simple formula.
+However, <b>make sure you correctly round</b> to the nearest integer.
+Instead of implementing your own rounding, look at Java's
+<code>java.lang.Math library</code> for the proper function to use.</p></li>
+
+<li><p>Implement <code>drawRegularPolygon()</code><br> Use your implementation of <code>calculateRegularPolygonAngle()</code>.  To test this, change the <code>main()</code> method to call <code>drawRegularPolygon()</code> and verify that you see what you expect.</p></li>
+</ul>
+
+<h3>Calculating Headings</h3>
+
+<ul>
+<li><p>Implement <code>calculateHeadingToPoint()</code><br>
+This function calculates the parameter to <code>turn()</code> required to get from a current point to a target point, with the current direction as an additional parameter.  For example, if the turtle is at (0,1) facing 30 degrees, and must get to (0,0), it must turn an additional 150 degrees, so <code>calculateHeadingToPoint(30, 0, 1, 0, 0)</code> would return <code>150.0</code>.</p></li>
+
+<li><p>Implement <code>calculateHeadings()</code><br>
+Make sure to use your <code>calculateHeadingToPoint()</code> implementation here.  For information on how to use Java's <code>List</code> interface and classes implementing it, look up <code>java.util.List</code> in the Java library documentation.  Note that for a list of n points, you will return n-1 heading adjustments; this list of adjustments could be used to guide the turtle to each point in the list. For example, if the input lists consisted of <code>xCoords=[0,0,1,1]</code> and <code>yCoords=[1,0,0,1]</code> (representing points (0,1), (0,0), (1,0), and (1,1)), the returned list would consist of <code>[180.0, 270.0, 270.0]</code>.</p></li>
+</ul>
+
+<h3>Drawing Personal Art</h3>
+
+<ul>
+<li><p>Implement <code>drawPersonalArt()</code><br>
+In this function, you have the freedom to draw any piece of art you wish; we will run a poll where your fellow
+students will rate your art and the winner will win a prize: a gift certificate to Toscanini's.  Your picture
+will be judged both on aesthetics and on the code used to draw it. Try to utilize helper methods, loops, etc.
+rather than simply listing forward and turn commands. </p>
+
+<p><a href="https://www.google.com/search?q=python+turtle+example+images">Here are some examples</a> of the
+kinds of images you can generate procedurally with turtle graphics, though note that many of them use more
+commands than what we've provided here.  Modify the <code>main()</code> method to see the results of your
+function.</p></li>
+
+</ul>
+
+<h2>Submitting</h2>
+
+<p><b>Make sure you commit AND push your changes to the repository!</b>
+We will use the state of your repository on Athena as of 10:00pm on the deadline date.
+When you <code>git push</code>, the continuous build system attempts to compile your code and run a <i>subset</i> of the autograder tests.
+You can always review your build results at <a href="https://didit.csail.mit.edu/">didit.csail.mit.edu</a>.
+This feedback is provided on a best-effort basis:
+</p><ul>
+<li>There is no guarantee that Didit tests will run within any particular timeframe, or at all.
+If you push code close to the deadline, the large number of submissions will slow the turnaround time before your code is examined.</li>
+<li>You do not need to have a successful Didit run before the deadline in order to be properly graded.</li>
+<li>Passing some or all of the <i>public tests</i> on Didit is no guarantee that you will pass the full battery of autograding tests — but failing them is almost sure to mean lost points on the problem set.</li>
+</ul>
+<p></p>
+
+<br>
+
+</li></div>
+
+
+
+</body></html>
