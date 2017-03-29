@@ -85,14 +85,29 @@ public class TurtleSoup {
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        int diffX = targetX - currentX;
-        int diffY = targetY - currentY;
-        double angleFromNorth = Math.toDegrees(Math.atan2(diffX, diffY));
-        double angle = angleFromNorth - currentHeading;
-        // normalize angle to be positive 
-        if(angle < 0)
-            angle += 360;
-        return angle;
+        int sideX = targetX - currentX;
+        int sideY = targetY - currentY;
+        // atan2 gives me angle at 0 in east, to change to 0 north (positive clockwise)
+        // atan2 returns radians and (positive anticlockwise)
+        double angleFromEast = Math.toDegrees(Math.atan2(sideY,sideX));
+        double angleFromNorth = 0;
+        
+        
+        if(-180 <= angleFromEast && angleFromEast <= 90){
+        	angleFromNorth = 90  - angleFromEast;
+        }
+        else if(angleFromEast > 90){
+        	angleFromNorth = 360 - (angleFromEast - 90);
+        }
+    	
+        // Blows my mind XoX
+        // double angleFromNorth = Math.toDegrees(Math.atan2(sideX,sideY));
+        if (angleFromNorth - currentHeading >= 0){
+        	return angleFromNorth - currentHeading;
+        }
+        else{
+        	return 360 + (angleFromNorth - currentHeading);
+        }
     }
 
     /**
@@ -107,15 +122,13 @@ public class TurtleSoup {
      * @return list of heading adjustments between points, of size #points-1.
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        List<Double> headingChanges = new ArrayList<Double>();
-        int numberOfCoordinates = xCoords.size();
+        List<Double> headingAdjustments = new ArrayList<>();
         double currentHeading = 0;
-        for(int i = 1; i < numberOfCoordinates; i++){
-            double adjustment = calculateHeadingToPoint(currentHeading, xCoords.get(i-1), yCoords.get(i-1), xCoords.get(i), xCoords.get(i));
-            currentHeading += adjustment;
-            headingChanges.add(adjustment);
+        for(int i = 0; i < xCoords.size()-1 ; i++){
+        	currentHeading = calculateHeadingToPoint(currentHeading, xCoords.get(i), yCoords.get(i), xCoords.get(i+1), yCoords.get(i+1));
+        	headingAdjustments.add(currentHeading);
         }
-        return headingChanges;
+        return headingAdjustments;
     }
 
     /**
