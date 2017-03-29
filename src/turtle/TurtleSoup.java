@@ -15,9 +15,9 @@ public class TurtleSoup {
     public static void drawSquare(final Turtle turtle, int sideLength) {
         final int SIDES_OF_SQUARE = 4;
         for (int i = 0; i < SIDES_OF_SQUARE; i++) {
-        	turtle.forward(sideLength);
-        	turtle.turn(90);
-		}
+            turtle.forward(sideLength);
+            turtle.turn(90);
+        }
     }
 
     /**
@@ -83,30 +83,30 @@ public class TurtleSoup {
      * @return adjustment to heading (right turn amount) to get to target point.
      *         Must be positive, and less than 360.
      */
-    public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
-                                                 int targetX, int targetY) {
-        int sideX = targetX - currentX;
-        int sideY = targetY - currentY;
+    public static double calculateHeadingToPoint(double currentHeading, double currentX, double currentY,
+            double targetX, double targetY) {
+        double sideX = targetX - currentX;
+        double sideY = targetY - currentY;
         // atan2 gives me angle at 0 in east, to change to 0 north (positive clockwise)
         // atan2 returns radians and (positive anticlockwise)
         double angleFromEast = Math.toDegrees(Math.atan2(sideY,sideX));
         double angleFromNorth = 0;
-        
-        
+
+
         if(-180 <= angleFromEast && angleFromEast <= 90){
-        	angleFromNorth = 90  - angleFromEast;
+            angleFromNorth = 90  - angleFromEast;
         }
         else if(angleFromEast > 90){
-        	angleFromNorth = 360 - (angleFromEast - 90);
+            angleFromNorth = 360 - (angleFromEast - 90);
         }
-    	
+
         // Blows my mind XoX
         // double angleFromNorth = Math.toDegrees(Math.atan2(sideX,sideY));
         if (angleFromNorth - currentHeading >= 0){
-        	return angleFromNorth - currentHeading;
+            return angleFromNorth - currentHeading;
         }
         else{
-        	return 360 + (angleFromNorth - currentHeading);
+            return 360 + (angleFromNorth - currentHeading);
         }
     }
 
@@ -121,14 +121,27 @@ public class TurtleSoup {
      * @param yCoords list of y-coordinates (must be same length as xCoords)
      * @return list of heading adjustments between points, of size #points-1.
      */
-    public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
+    public static List<Double> calculateHeadings(List<Double> xCoords, List<Double> yCoords) {
         List<Double> headingAdjustments = new ArrayList<>();
         double currentHeading = 0;
         for(int i = 0; i < xCoords.size()-1 ; i++){
-        	currentHeading = calculateHeadingToPoint(currentHeading, xCoords.get(i), yCoords.get(i), xCoords.get(i+1), yCoords.get(i+1));
-        	headingAdjustments.add(currentHeading);
+            currentHeading = calculateHeadingToPoint(currentHeading, xCoords.get(i), yCoords.get(i), xCoords.get(i+1), yCoords.get(i+1));
+            headingAdjustments.add(currentHeading);
         }
         return headingAdjustments;
+    }
+
+    /**
+     * Gives the midPoint
+     * @param currentX currentY current location
+     * @param targetX targetY target point
+     * @return midPoint
+     */
+    private static double[] midPoint(double currentX, double currentY, double targetX, double targetY){
+        double[] midPoint = new double[2];
+        midPoint[0] = (currentX + targetX) / 2;
+        midPoint[1] = (currentY + targetY) / 2;
+        return midPoint;
     }
 
     /**
@@ -142,10 +155,23 @@ public class TurtleSoup {
      * @param turtle the turtle context
      */
     public static void drawPersonalArt(Turtle turtle) {
-        // onion slice
-        for(int i = 0; i < 15; i++){ // i < 15 to limit size of shapes
-            drawRegularPolygon(turtle, i, i*10);
-            drawRegularPolygon(turtle, i*10, i);
+        List<Double> xCoords = new ArrayList<>();
+        xCoords.add(0.);
+        xCoords.add(50.);
+        xCoords.add(100.);
+        xCoords.add(0.);
+        List<Double> yCoords = new ArrayList<>();
+        yCoords.add(0.);
+        yCoords.add(86.6);
+        yCoords.add(0.);
+        yCoords.add(0.);
+        
+        List<Double> triangle1Headings = new ArrayList<>();
+        triangle1Headings = calculateHeadings(xCoords,yCoords);
+        
+        for(int i = 0; i <triangle1Headings.size(); i++){
+            turtle.turn(triangle1Headings.get(i));
+            turtle.forward(100);
         }
     }
 
@@ -159,9 +185,10 @@ public class TurtleSoup {
         DrawableTurtle turtle = new DrawableTurtle();
         // draw the window
         turtle.draw();
-        
-//        drawSquare(turtle,60);
-        drawRegularPolygon(turtle, 6, 60);
+
+        //        drawSquare(turtle,60);
+        //        drawRegularPolygon(turtle, 6, 60);
+        drawPersonalArt(turtle);
 
     }
 
