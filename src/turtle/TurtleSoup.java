@@ -14,7 +14,10 @@ public class TurtleSoup {
      */
     public static void drawSquare(final Turtle turtle, int sideLength) {
         final int SIDES_OF_SQUARE = 4;
-        drawRegularPolygon(turtle, SIDES_OF_SQUARE, sideLength);
+        for (int i = 0; i < SIDES_OF_SQUARE; i++) {
+        	turtle.forward(sideLength);
+        	turtle.turn(90);
+		}
     }
 
     /**
@@ -27,7 +30,7 @@ public class TurtleSoup {
      * @return angle, in degrees between 0 and 360
      */
     public static double calculateRegularPolygonAngle(int sides) {
-        return ((double) ((sides - 2) * 180)) / sides;
+        return  (sides - 2.0) * 180.0 / sides;
     }
 
     /**
@@ -41,9 +44,9 @@ public class TurtleSoup {
      * @return the integer number of sides
      */
     public static int calculatePolygonSidesFromAngle(double angle) {
-        // The sum of exerior angles should be 360 deg
+        // The sum of exterior angles should be 360 degrees
         // Divide 360 by the exterior angle to find the number of sides
-        return Math.round(360 / (180 - (float) angle));
+        return Math.round(360 / (180 - (float)angle));
     }
 
     /**
@@ -142,9 +145,10 @@ public class TurtleSoup {
     public static void main(String args[]) {
         DrawableTurtle turtle = new DrawableTurtle();
         
-        drawPersonalArt(turtle);
+//        drawPersonalArt(turtle);
 
         // draw the window
+        drawSquare(turtle,60);
         turtle.draw();
     }
 
