@@ -1,5 +1,15 @@
+
 hello git! Trying out a merge conflict on my git on laptop thing
 
 I changed you 
 
 Lets try to recreate a mege conflit, I'll add this with my laptop!
+
+hello git! Git hub merge configlt
+
+I changed you 
+
+I going to change this in github to tray to create a merge conlict
+
+
+YEY MAERGE CONFLICT RESOVLED!! REMEMBER TO ALWAYS GIT PULL BEFORE MAKING CHANGES
