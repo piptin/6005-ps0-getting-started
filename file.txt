@@ -1,3 +1,5 @@
-hello git!
+hello git! Git hub merge configlt
 
 I changed you 
+
+I going to change this in github to tray to create a merge conlict
