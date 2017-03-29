@@ -1,3 +1,5 @@
-hello git!
+hello git! Trying out a merge conflict on my git on laptop thing
 
 I changed you 
+
+Lets try to recreate a mege conflit, I'll add this with my laptop!
